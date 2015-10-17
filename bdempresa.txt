@@ -1,0 +1,74 @@
+﻿
+
+-- Database: bdempresa
+
+
+-- DROP DATABASE bdempresa;
+
+
+CREATE DATABASE bdempresa
+  
+WITH OWNER = postgres
+       
+ENCODING = 'UTF8'
+       
+TABLESPACE = pg_default
+       
+LC_COLLATE = 'Spanish_Bolivarian Republic of Venezuela.1252'
+       
+LC_CTYPE = 'Spanish_Bolivarian Republic of Venezuela.1252'
+       
+CONNECTION LIMIT = -1;
+
+
+COMMENT ON DATABASE bdempresa
+  IS 'Base de datos de la empresa';
+
+
+
+
+
+-- Table: departamento
+
+
+-- DROP TABLE departamento;
+
+
+CREATE TABLE departamento
+(
+  coddpto integer NOT NULL,
+  nombredpto character varying(20) NOT NULL,
+  CONSTRAINT departamento_pkey PRIMARY KEY (coddpto)
+)
+WITH (
+  OIDS=FALSE
+);
+
+ALTER TABLE departamento
+  OWNER TO postgres;
+  
+  
+  
+
+-- Table: persona
+
+
+-- DROP TABLE persona;
+
+
+CREATE TABLE persona
+(
+  cedula integer NOT NULL,
+  nombre character varying(40) NOT NULL,
+  dpto integer,
+  CONSTRAINT persona_pkey PRIMARY KEY (cedula),
+  CONSTRAINT persona_dpto_fkey FOREIGN KEY (dpto)
+      REFERENCES departamento (coddpto) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+WITH (
+  OIDS=FALSE
+);
+
+ALTER TABLE persona
+  OWNER TO postgres;
